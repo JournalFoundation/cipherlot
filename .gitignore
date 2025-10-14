@@ -63,3 +63,4 @@ pids
 
 # Kubernetes secrets (if any get generated)
 *.secret.yaml
+node_modules/
