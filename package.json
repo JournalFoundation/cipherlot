@@ -1,0 +1,12 @@
+{
+  "name": "cipherlot",
+  "version": "0.0.0-development",
+  "private": true,
+  "description": "Release configuration for semantic-release.",
+  "scripts": {
+    "semantic-release": "semantic-release"
+  },
+  "devDependencies": {
+    "semantic-release": "^23.0.0"
+  }
+}
