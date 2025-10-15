@@ -1,23 +1,23 @@
-name: Mirror to GitLab & tag-release
+name: Mirror to GitLab
 
 on:
-  push:
-    branches: [ "main" ]
-    tags:
-      - "v*"
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Release"]   # run AFTER Release creates the tag
+    types: [completed]
+  workflow_dispatch:         # allow manual backfill
 
 jobs:
   mirror:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # needed so we can fetch tags and such
+      contents: write
 
     steps:
-      - name: Checkout
+      - name: Checkout (full history + tags)
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # IMPORTANT: get all history + tags
+          fetch-depth: 0
+          fetch-tags: true
 
       - name: Add GitLab remote
         run: |
@@ -26,14 +26,8 @@ jobs:
           git remote add gitlab "https://oauth2:${{ secrets.GITLAB_PAT }}@${{ secrets.GITLAB_URL }}/${{ secrets.GITLAB_REPO }}.git"
           git fetch --all --tags
 
-      # Keep GitLab 'main' in sync when pushing to GitHub 'main'
-      - name: Push main branch to GitLab
-        if: github.ref == 'refs/heads/main'
-        run: |
-          git push gitlab refs/remotes/origin/main:refs/heads/main --force-with-lease
+      - name: Push main
+        run: git push gitlab refs/remotes/origin/main:refs/heads/main --force-with-lease
 
-      # If a tag push triggered this workflow, push that tag too
-      - name: Push current tag to GitLab
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          git push gitlab ${{ github.ref }}:${{ github.ref }}
+      - name: Push ALL tags
+        run: git push gitlab --tags
