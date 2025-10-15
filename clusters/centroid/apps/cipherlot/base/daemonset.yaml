@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: cipherlot-node-agent
+  namespace: cipherlot
+spec:
+  selector:
+    matchLabels:
+      app: cipherlot-node-agent
+  template:
+    metadata:
+      labels:
+        app: cipherlot-node-agent
+    spec:
+      # Run on control-plane too (your worker is NotReady)
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+        - key: "node-role.kubernetes.io/master"
+          operator: "Exists"
+          effect: "NoSchedule"
+      containers:
+        - name: agent
+          image: registry.benac.dev/cipherlot-node:v0.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 5
