@@ -1,3 +1,10 @@
+## [0.5.4](https://github.com/JournalFoundation/cipherlot/compare/v0.5.3...v0.5.4) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** revert to workflow_run trigger for reliable tag mirroring ([9b77859](https://github.com/JournalFoundation/cipherlot/commit/9b7785957fed1c68fafd4045540a107c7676568b))
+
 ## [0.5.3](https://github.com/JournalFoundation/cipherlot/compare/v0.5.2...v0.5.3) (2025-10-16)
 
 
