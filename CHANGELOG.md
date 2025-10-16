@@ -1,3 +1,10 @@
+## [0.5.3](https://github.com/JournalFoundation/cipherlot/compare/v0.5.2...v0.5.3) (2025-10-16)
+
+
+### Bug Fixes
+
+* **node:** update status version to v0.5.3 ([6e54793](https://github.com/JournalFoundation/cipherlot/commit/6e547939f0ce7088ab43c26f4245ff2c7d381856))
+
 ## [0.5.2](https://github.com/JournalFoundation/cipherlot/compare/v0.5.1...v0.5.2) (2025-10-16)
 
 
