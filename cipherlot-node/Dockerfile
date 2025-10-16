@@ -2,7 +2,8 @@
 FROM golang:1.22-alpine AS build
 WORKDIR /src
 COPY . .
-RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o /out/node ./cmd/node
+ARG VERSION=dev
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X main.version=${VERSION}" -o /out/node ./cmd/node
 
 # run (distroless base for smaller image)
 FROM gcr.io/distroless/base-debian12

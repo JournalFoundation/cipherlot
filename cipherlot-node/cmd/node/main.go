@@ -41,7 +41,10 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{"status": "ok", "time": time.Now().Unix()})
 }
 
-var startTime = time.Now()
+var (
+	startTime = time.Now()
+	version   = "dev" // Set via ldflags during build
+)
 
 func (s *server) status(w http.ResponseWriter, r *http.Request) {
 	hostname, _ := os.Hostname()
@@ -59,7 +62,7 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	status := map[string]any{
-		"version":    "v0.5.3", // Testing GitOps automation
+		"version":    version,
 		"hostname":   hostname,
 		"uptime":     time.Since(startTime).String(),
 		"data_root":  s.DataRoot,

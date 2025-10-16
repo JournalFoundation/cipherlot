@@ -20,6 +20,15 @@ build-image:
     entrypoint: [""]
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'
+  before_script:
+    # Copy CA certificate from GitLab runner's trust store
+    - mkdir -p /kaniko/ssl/certs
+    - cp /etc/ssl/certs/ca-certificates.crt /kaniko/ssl/certs/
+    # If Centroid CA is available on runner, append it
+    - |
+      if [ -f /etc/ssl/centroid-ca/certs/ca-root.crt ]; then
+        cat /etc/ssl/centroid-ca/certs/ca-root.crt >> /kaniko/ssl/certs/ca-certificates.crt
+      fi
   script:
     - |
       /kaniko/executor \
@@ -28,4 +37,5 @@ build-image:
         --destination "$REGISTRY/$IMAGE_NAME:$CI_COMMIT_TAG" \
         --destination "$REGISTRY/$IMAGE_NAME:latest" \
         --cache=true \
-        --skip-tls-verify-registry=$REGISTRY
+        --build-arg VERSION=$CI_COMMIT_TAG \
+        --registry-certificate=$REGISTRY=/kaniko/ssl/certs/ca-certificates.crt
