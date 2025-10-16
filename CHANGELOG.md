@@ -1,3 +1,10 @@
+## [0.5.2](https://github.com/JournalFoundation/cipherlot/compare/v0.5.1...v0.5.2) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** trigger GitLab CI on tag push with explicit pipeline API call ([b4195c8](https://github.com/JournalFoundation/cipherlot/commit/b4195c89590bb83b4a8f7bf6b6a42b242733a4f4))
+
 ## [0.5.1](https://github.com/JournalFoundation/cipherlot/compare/v0.5.0...v0.5.1) (2025-10-16)
 
 
