@@ -59,7 +59,7 @@ func (s *server) status(w http.ResponseWriter, r *http.Request) {
 	}
 	
 	status := map[string]any{
-		"version":    "v0.3.3",
+		"version":    "v0.5.1", // Updated to match upcoming release
 		"hostname":   hostname,
 		"uptime":     time.Since(startTime).String(),
 		"data_root":  s.DataRoot,
