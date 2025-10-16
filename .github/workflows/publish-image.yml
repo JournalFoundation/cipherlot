@@ -1,0 +1,60 @@
+name: Publish cipherlot-node image
+
+on:
+  push:
+    tags: ["v*"]          # build on new tags automatically
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build (e.g., v0.0.1)"
+        required: true
+        default: "v0.0.1"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    permissions: { contents: read }
+    env:
+      REGISTRY: registry.benac.dev
+      IMAGE_NAME: cipherlot-node
+      CONTEXT_DIR: cipherlot-node   # adjust if your Dockerfile is elsewhere
+      DOCKERFILE: cipherlot-node/Dockerfile
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          # If manual run, build the specified tag
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - name: Set tag name
+        id: vars
+        run: |
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            TAG="${{ github.event.inputs.tag }}"
+          else
+            TAG="${GITHUB_REF_NAME}"
+          fi
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build & Push
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.CONTEXT_DIR }}
+          file: ${{ env.DOCKERFILE }}
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.tag }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
