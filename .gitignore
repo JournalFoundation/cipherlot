@@ -24,6 +24,7 @@ go.sum
 # Build artifacts
 dist/
 build/
+.astro/
 
 # IDE and editor files
 .vscode/
