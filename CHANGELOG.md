@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/JournalFoundation/cipherlot/compare/v0.1.0...v0.2.0) (2025-10-16)
+
+
+### Features
+
+* **ci:** add GitHub Action for publishing cipherlot-node image ([1b96469](https://github.com/JournalFoundation/cipherlot/commit/1b964698f7ec8e2bec4caea217eba9d727ecd717))
+
 # [0.1.0](https://github.com/JournalFoundation/cipherlot/compare/v0.0.1...v0.1.0) (2025-10-15)
 
 
