@@ -1,0 +1,4 @@
+Contact: mailto:security@journalfoundation.org
+Encryption: https://journalfoundation.org/pgp/security.asc
+Policy: https://journalfoundation.org/security
+Preferred-Languages: en

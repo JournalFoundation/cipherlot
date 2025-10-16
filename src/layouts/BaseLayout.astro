@@ -1,0 +1,129 @@
+---
+const {
+  title = 'Journal Foundation',
+  description = 'Building the post-surveillance web.',
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+          sans-serif;
+        --space-xs: 0.375rem;
+        --space-sm: 0.75rem;
+        --space-md: 1.25rem;
+        --space-lg: 1.75rem;
+        --space-xl: 2.5rem;
+        --space-2xl: 3rem;
+        --space-3xl: 4rem;
+        --text-primary: #161c2d;
+        --text-secondary: #4a5266;
+        --bg-page: #f7f9fc;
+        --bg-card: #ffffff;
+        --border-radius: 14px;
+        --shadow-soft: 0 20px 45px rgba(21, 26, 38, 0.08);
+        --max-width: 840px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--font-family);
+        background: var(--bg-page);
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: var(--space-2xl) var(--space-md);
+      }
+
+      .card {
+        width: 100%;
+        max-width: var(--max-width);
+        background: var(--bg-card);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-soft);
+        padding: var(--space-xl) clamp(var(--space-md), 5vw, var(--space-2xl));
+      }
+
+      a {
+        color: #2f6fed;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--text-primary);
+        margin-top: var(--space-lg);
+        margin-bottom: var(--space-sm);
+      }
+
+      h1 {
+        font-size: clamp(2.25rem, 4vw, 3rem);
+        margin-top: 0;
+      }
+
+      p {
+        margin-top: 0;
+        margin-bottom: var(--space-sm);
+      }
+
+      .prose ul {
+        padding-left: 1.25rem;
+        margin-top: 0;
+        margin-bottom: var(--space-md);
+      }
+
+      .prose li {
+        margin-bottom: var(--space-xs);
+      }
+
+      .lead {
+        font-size: 1.15rem;
+        color: var(--text-primary);
+        font-weight: 500;
+      }
+
+      @media (max-width: 720px) {
+        main {
+          padding: var(--space-xl) var(--space-sm);
+        }
+
+        .card {
+          padding: var(--space-lg) var(--space-md);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article class="card prose">
+        <slot />
+      </article>
+    </main>
+  </body>
+</html>
