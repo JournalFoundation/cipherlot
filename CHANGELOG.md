@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/JournalFoundation/cipherlot/compare/v0.2.0...v0.3.0) (2025-10-16)
+
+
+### Features
+
+* **cipherlot:** update production overlay to use v0.3.0 image ([6308b1e](https://github.com/JournalFoundation/cipherlot/commit/6308b1e11cbc7a11fb5a13f6cdc06ebf75498291))
+
 # [0.2.0](https://github.com/JournalFoundation/cipherlot/compare/v0.1.0...v0.2.0) (2025-10-16)
 
 
