@@ -1,3 +1,10 @@
+# [0.5.0](https://github.com/JournalFoundation/cipherlot/compare/v0.4.2...v0.5.0) (2025-10-16)
+
+
+### Features
+
+* **node:** add /status endpoint with system info ([01532b6](https://github.com/JournalFoundation/cipherlot/commit/01532b6ad52fa009f759ce542f6214a22378a323))
+
 ## [0.4.2](https://github.com/JournalFoundation/cipherlot/compare/v0.4.1...v0.4.2) (2025-10-16)
 
 
