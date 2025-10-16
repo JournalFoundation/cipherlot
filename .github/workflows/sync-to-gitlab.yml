@@ -26,19 +26,25 @@ jobs:
           git remote add gitlab "https://oauth2:${{ secrets.GITLAB_PAT }}@${{ secrets.GITLAB_URL }}/${{ secrets.GITLAB_REPO }}.git"
           git fetch --all --tags
 
-      - name: Push the tag to GitLab
+      - name: Push main branch to GitLab
         run: |
-          git push gitlab ${{ github.ref }}:${{ github.ref }} --force-with-lease
+          git push gitlab refs/remotes/origin/main:refs/heads/main --force-with-lease
 
-      # Belt-and-suspenders: explicitly trigger a pipeline for this tag
-      - name: Trigger GitLab pipeline for this tag
+      - name: Push ALL tags to GitLab
+        run: |
+          git push gitlab --tags
+
+      # Belt-and-suspenders: explicitly trigger a pipeline for the latest tag
+      - name: Trigger GitLab pipeline for latest tag
         env:
           GL_URL: ${{ secrets.GITLAB_URL }}
           GL_PROJ: ${{ secrets.GITLAB_PROJECT_ID }}   # numeric project ID
           GL_TOKEN: ${{ secrets.GITLAB_PAT }}
-          TAG: ${{ github.ref_name }}
         run: |
+          # Get the latest tag since workflow_run context doesn't have tag ref
+          LATEST_TAG=$(git describe --tags --abbrev=0)
+          echo "Triggering pipeline for tag: $LATEST_TAG"
           curl -sfS -X POST \
             -H "PRIVATE-TOKEN: ${GL_TOKEN}" \
-            "https://${GL_URL}/api/v4/projects/${GL_PROJ}/pipeline?ref=${TAG}" \
+            "https://${GL_URL}/api/v4/projects/${GL_PROJ}/pipeline?ref=${LATEST_TAG}" \
             || true
