@@ -1,3 +1,10 @@
+# [0.4.0](https://github.com/JournalFoundation/cipherlot/compare/v0.3.2...v0.4.0) (2025-10-16)
+
+
+### Features
+
+* **cipherlot:** enable Flux image automation for cipherlot-node ([e7b594d](https://github.com/JournalFoundation/cipherlot/commit/e7b594d52ba5572aa1a08ca04eb572e662d00052))
+
 # [0.3.0](https://github.com/JournalFoundation/cipherlot/compare/v0.2.0...v0.3.0) (2025-10-16)
 
 
