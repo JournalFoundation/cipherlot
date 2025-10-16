@@ -22,7 +22,7 @@ spec:
           effect: "NoSchedule"
       containers:
         - name: agent
-          image: registry.benac.dev/cipherlot-node:v0.0.1
+          image: registry.benac.dev/cipherlot-node
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
