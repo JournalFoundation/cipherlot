@@ -1,0 +1,25 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: cipherlot-node
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: cipherlot
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: Flux Bot
+        email: flux-bot@benac.dev
+      messageTemplate: 'chore(cipherlot): bump cipherlot-node to {{range .Updated.Images}}{{.NewImage}}{{end}}'
+    push:
+      branch: main
+  update:
+    strategy: Setters
+    path: ./clusters/centroid/apps/cipherlot/overlays/prod

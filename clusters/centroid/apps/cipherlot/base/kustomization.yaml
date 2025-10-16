@@ -4,3 +4,6 @@ resources:
   - namespace.yaml
   - daemonset.yaml
   - service-nodeport.yaml
+  - imagerepository.yaml
+  - imagepolicy.yaml
+  - imageupdate.yaml

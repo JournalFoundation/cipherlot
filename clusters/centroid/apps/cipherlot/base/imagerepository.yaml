@@ -1,0 +1,11 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cipherlot-node
+  namespace: flux-system
+spec:
+  image: registry.benac.dev/cipherlot-node
+  interval: 1m
+  provider: generic
+  certSecretRef:
+    name: centroid-ca
