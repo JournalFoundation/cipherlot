@@ -4,8 +4,6 @@ import (
 	"bufio"
 	"crypto/sha256"
 	"encoding/json"
-	"errors"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
