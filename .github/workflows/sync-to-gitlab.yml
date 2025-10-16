@@ -1,17 +1,16 @@
-name: Mirror to GitLab
+name: Mirror to GitLab & trigger CI
 
 on:
-  workflow_run:
-    workflows: ["Release"]   # run AFTER Release creates the tag
-    types: [completed]
-  workflow_dispatch:         # allow manual backfill
+  push:
+    tags:
+      - 'v*'          # fire immediately when the tag is created
+  workflow_dispatch:
 
 jobs:
   mirror:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-
     steps:
       - name: Checkout (full history + tags)
         uses: actions/checkout@v4
@@ -26,8 +25,19 @@ jobs:
           git remote add gitlab "https://oauth2:${{ secrets.GITLAB_PAT }}@${{ secrets.GITLAB_URL }}/${{ secrets.GITLAB_REPO }}.git"
           git fetch --all --tags
 
-      - name: Push main
-        run: git push gitlab refs/remotes/origin/main:refs/heads/main --force-with-lease
+      - name: Push the tag to GitLab
+        run: |
+          git push gitlab ${{ github.ref }}:${{ github.ref }} --force-with-lease
 
-      - name: Push ALL tags
-        run: git push gitlab --tags
+      # Belt-and-suspenders: explicitly trigger a pipeline for this tag
+      - name: Trigger GitLab pipeline for this tag
+        env:
+          GL_URL: ${{ secrets.GITLAB_URL }}
+          GL_PROJ: ${{ secrets.GITLAB_PROJECT_ID }}   # numeric project ID
+          GL_TOKEN: ${{ secrets.GITLAB_PAT }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          curl -sfS -X POST \
+            -H "PRIVATE-TOKEN: ${GL_TOKEN}" \
+            "https://${GL_URL}/api/v4/projects/${GL_PROJ}/pipeline?ref=${TAG}" \
+            || true
