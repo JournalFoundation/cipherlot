@@ -1,3 +1,11 @@
+## [0.5.1](https://github.com/JournalFoundation/cipherlot/compare/v0.5.0...v0.5.1) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** remove [skip ci] from semantic-release commits ([c63ee27](https://github.com/JournalFoundation/cipherlot/commit/c63ee2764c76a97ae73cd49dfd9a6423e196a8d0))
+* **node:** update version string to v0.5.1 ([ea8cae7](https://github.com/JournalFoundation/cipherlot/commit/ea8cae75d7780eb48ad13b224fa8f19bde05e9d1))
+
 # [0.5.0](https://github.com/JournalFoundation/cipherlot/compare/v0.4.2...v0.5.0) (2025-10-16)
 
 
