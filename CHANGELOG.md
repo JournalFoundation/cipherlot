@@ -1,3 +1,10 @@
+## [0.5.5](https://github.com/JournalFoundation/cipherlot/compare/v0.5.4...v0.5.5) (2025-10-16)
+
+
+### Bug Fixes
+
+* **ci:** restore push all tags step to GitLab sync workflow ([9546396](https://github.com/JournalFoundation/cipherlot/commit/9546396cecb62f35ccf0fc2fe6254f7e27518f2f))
+
 ## [0.5.4](https://github.com/JournalFoundation/cipherlot/compare/v0.5.3...v0.5.4) (2025-10-16)
 
 
