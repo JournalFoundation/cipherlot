@@ -1,9 +1,10 @@
 name: Mirror to GitLab & trigger CI
 
 on:
-  push:
-    tags:
-      - 'v*'          # fire immediately when the tag is created
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
