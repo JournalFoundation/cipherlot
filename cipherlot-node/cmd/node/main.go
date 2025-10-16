@@ -41,6 +41,45 @@ func (s *server) health(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]any{"status": "ok", "time": time.Now().Unix()})
 }
 
+var startTime = time.Now()
+
+func (s *server) status(w http.ResponseWriter, r *http.Request) {
+	hostname, _ := os.Hostname()
+	
+	// Get directory info
+	var blobCount, manifestCount, feedCount int
+	if entries, err := os.ReadDir(s.BlobsDir); err == nil {
+		blobCount = len(entries)
+	}
+	if entries, err := os.ReadDir(s.ManifestsDir); err == nil {
+		manifestCount = len(entries)
+	}
+	if entries, err := os.ReadDir(s.FeedsDir); err == nil {
+		feedCount = len(entries)
+	}
+	
+	status := map[string]any{
+		"version":    "v0.3.3",
+		"hostname":   hostname,
+		"uptime":     time.Since(startTime).String(),
+		"data_root":  s.DataRoot,
+		"storage": map[string]int{
+			"blobs":     blobCount,
+			"manifests": manifestCount,
+			"feeds":     feedCount,
+		},
+		"endpoints": []string{
+			"/health",
+			"/healthz",
+			"/status",
+			"/blobs/{cid}",
+			"/manifests/{cid}",
+			"/feeds/{author}",
+		},
+	}
+	writeJSON(w, http.StatusOK, status)
+}
+
 // /blobs/{cid}
 func (s *server) blobs(w http.ResponseWriter, r *http.Request) {
 	c := strings.TrimPrefix(r.URL.Path, "/blobs/")
@@ -241,6 +280,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/health", s.health)
 	mux.HandleFunc("/healthz", s.health)
+	mux.HandleFunc("/status", s.status)
 	mux.HandleFunc("/blobs/", s.blobs)
 	mux.HandleFunc("/manifests/", s.manifests)
 	mux.HandleFunc("/feeds/", s.feeds)
