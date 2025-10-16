@@ -1,3 +1,10 @@
+## [0.4.2](https://github.com/JournalFoundation/cipherlot/compare/v0.4.1...v0.4.2) (2025-10-16)
+
+
+### Bug Fixes
+
+* **gitops:** scope Flux imagepolicy to :tag to avoid duplicate registry in newTag ([57a7bf0](https://github.com/JournalFoundation/cipherlot/commit/57a7bf061767d076746830fb914549c0cb183b41))
+
 ## [0.4.1](https://github.com/JournalFoundation/cipherlot/compare/v0.4.0...v0.4.1) (2025-10-16)
 
 
