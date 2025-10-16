@@ -1,3 +1,16 @@
+## [0.4.1](https://github.com/JournalFoundation/cipherlot/compare/v0.4.0...v0.4.1) (2025-10-16)
+
+
+### Bug Fixes
+
+* **cipherlot:** correct image tag format ([e9787d3](https://github.com/JournalFoundation/cipherlot/commit/e9787d3392a9d8d2613bf9274a86941b709be318))
+* **cipherlot:** correct ImageUpdateAutomation messageTemplate syntax ([abfeb0f](https://github.com/JournalFoundation/cipherlot/commit/abfeb0fdb93e2622cf593a60ee103d5c26d15351))
+
+
+### Reverts
+
+* Revert "Merge pull request [#5](https://github.com/JournalFoundation/cipherlot/issues/5) from JournalFoundation/codex/implement-contact-page-structure-and-copy" ([d1a1829](https://github.com/JournalFoundation/cipherlot/commit/d1a18295ca13180ce9fc8acc2f9e0c6077f71895))
+
 # [0.4.0](https://github.com/JournalFoundation/cipherlot/compare/v0.3.2...v0.4.0) (2025-10-16)
 
 
