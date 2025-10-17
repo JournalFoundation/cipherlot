@@ -1,3 +1,10 @@
+## [0.5.7](https://github.com/JournalFoundation/cipherlot/compare/v0.5.6...v0.5.7) (2025-10-17)
+
+
+### Bug Fixes
+
+* **ci:** use CI variable for CA injection instead of host paths ([bf62277](https://github.com/JournalFoundation/cipherlot/commit/bf622776cc3ab1e0516dc8685a7b1c992aec9583))
+
 ## [0.5.6](https://github.com/JournalFoundation/cipherlot/compare/v0.5.5...v0.5.6) (2025-10-17)
 
 
