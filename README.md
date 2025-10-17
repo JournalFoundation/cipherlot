@@ -32,4 +32,32 @@ CipherLot uses content-addressed storage where content is identified by its cryp
 - `DATA_ROOT` - Storage directory (default: `./data`)
 - `PORT` - Server port (default: `8080`)
 
+## Development
+
+```bash
+# Build from source
+cd cipherlot-node
+go build -o node ./cmd/node
+
+# Run locally
+./node
+
+# Run tests
+go test ./...
+```
+
+## Docker Build
+
+```bash
+# Build container
+docker build -t cipherlot-node ./cipherlot-node
+
+# Run with custom data directory
+docker run -v /host/data:/data -p 8080:8080 cipherlot-node
+```
+
+## Architecture
+
+The node implements a simple REST API over a file-based storage backend. Each piece of content is stored as a file named by its SHA-256 hash, ensuring content integrity and enabling efficient deduplication.
+
 More documentation coming soon.
