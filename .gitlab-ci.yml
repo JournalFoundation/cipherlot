@@ -21,13 +21,16 @@ build-image:
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'
   before_script:
-    # Copy CA certificate from GitLab runner's trust store
     - mkdir -p /kaniko/ssl/certs
-    - cp /etc/ssl/certs/ca-certificates.crt /kaniko/ssl/certs/
-    # If Centroid CA is available on runner, append it
+    # Prefer proper TLS: inject Centroid CA when provided; else use Kaniko's default bundle
     - |
-      if [ -f /etc/ssl/centroid-ca/certs/ca-root.crt ]; then
-        cat /etc/ssl/centroid-ca/certs/ca-root.crt >> /kaniko/ssl/certs/ca-certificates.crt
+      if [ -n "$REGISTRY_CA_B64" ]; then
+        echo "$REGISTRY_CA_B64" | base64 -d > /kaniko/ssl/certs/centroid-ca.crt
+        export REGISTRY_CA_FILE=/kaniko/ssl/certs/centroid-ca.crt
+        echo "Using injected registry CA at $REGISTRY_CA_FILE"
+      else
+        export REGISTRY_CA_FILE=/kaniko/ssl/certs/ca-certificates.crt
+        echo "No REGISTRY_CA_B64 provided; using Kaniko default CA bundle"
       fi
   script:
     - |
@@ -38,4 +41,4 @@ build-image:
         --destination "$REGISTRY/$IMAGE_NAME:latest" \
         --cache=true \
         --build-arg VERSION=$CI_COMMIT_TAG \
-        --registry-certificate=$REGISTRY=/kaniko/ssl/certs/ca-certificates.crt
+        --registry-certificate=$REGISTRY=$REGISTRY_CA_FILE
