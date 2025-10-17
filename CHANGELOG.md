@@ -1,3 +1,10 @@
+## [0.5.6](https://github.com/JournalFoundation/cipherlot/compare/v0.5.5...v0.5.6) (2025-10-17)
+
+
+### Bug Fixes
+
+* harden production deployment with 4 critical improvements ([7b15ad0](https://github.com/JournalFoundation/cipherlot/commit/7b15ad089eaf7815fff1e9ae823048d15698db6b))
+
 ## [0.5.5](https://github.com/JournalFoundation/cipherlot/compare/v0.5.4...v0.5.5) (2025-10-16)
 
 
